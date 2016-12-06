@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="org.apache.maven.surefire:common-junit4:2.8.1" type="repository">
+    <properties maven-id="org.apache.maven.surefire:common-junit4:2.8.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/surefire/common-junit4/2.8.1/common-junit4-2.8.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.0/junit-4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/surefire/common-junit3/2.8.1/common-junit3-2.8.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/surefire/surefire-api/2.8.1/surefire-api-2.8.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

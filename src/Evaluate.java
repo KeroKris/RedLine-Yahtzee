@@ -9,7 +9,7 @@ public interface Evaluate {
     /**
      * 
      */
-    public void evaluateAndScore;
+    public int evaluateAndScore(int setChosen, Die[] dice);
 
 
 
