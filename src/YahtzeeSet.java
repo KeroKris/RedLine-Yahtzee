@@ -12,9 +12,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.ONE);
-
             return sum;
         }
     },
@@ -22,9 +20,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.TWO);
-
             return sum;
         }
     },
@@ -32,9 +28,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.THREE);
-
             return sum;
         }
     },
@@ -42,9 +36,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.FOUR);
-
             return sum;
         }
     },
@@ -52,9 +44,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.FIVE);
-
             return sum;
         }
     },
@@ -62,9 +52,7 @@ public enum YahtzeeSet {
         @Override
         public int evaluateSet(Die[] dice) {
             int sum;
-
             sum = add(dice, DieResult.SIX);
-
             return sum;
         }
     },
@@ -140,7 +128,6 @@ public enum YahtzeeSet {
         public int evaluateSet(Die[] dice) {
 
             int sum = 0;
-
             for (Die d :
                     dice) {
                 sum += d.getDieResult().getValue();

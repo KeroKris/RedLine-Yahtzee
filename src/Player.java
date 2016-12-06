@@ -8,7 +8,6 @@ public class Player implements Evaluate {
 
     private List<Scores> scoresList;
 
-//    private boolean[] pickedSets;
     private Die[] dice = new Die[5];
     private String name;
     private int totalScore = 0;
@@ -21,10 +20,8 @@ public class Player implements Evaluate {
         this.name = name;
         for (int i = 0; i < dice.length; i++) {
             dice[i] = new Die();
-//            pickedSets = new boolean[13];
 
             scoresList = new ArrayList<>();
-
             populateList(scoresList);
         }
     }
