@@ -8,15 +8,29 @@ public class Player implements Evaluate {
 
     private List<Scores> scoresList;
 
+    private int id;
     private Die[] dice = new Die[5];
     private String name;
     private int totalScore = 0;
     private boolean scoredBonus = false, setsRemaining = true;
+    private int currentRound = 0;
+    private Scores currentSetScored;
 
     /**
      * Constructor
      */
     public Player(String name) {
+        this.name = name;
+        for (int i = 0; i < dice.length; i++) {
+            dice[i] = new Die();
+
+            scoresList = new ArrayList<>();
+            populateList(scoresList);
+        }
+    }
+
+    public Player(String name, int id) {
+        this.id = id;
         this.name = name;
         for (int i = 0; i < dice.length; i++) {
             dice[i] = new Die();
@@ -49,9 +63,10 @@ public class Player implements Evaluate {
      * Every player's turn
      */
     public void playTurn() {
-        System.out.println("\n\n*******************************");
-        System.out.println("It is " + name + "'s turn");
-        System.out.println("*******************************\n");
+        currentRound++;
+        System.out.println("\n\n********************************************************");
+        System.out.println("It is " + name + "'s turn, " + "current round: " + currentRound);
+        System.out.println("**********************************************************\n");
 
         printScore();
 
@@ -91,6 +106,7 @@ public class Player implements Evaluate {
         System.out.println();
         chooseSet();
 
+        DatabaseHandler.logRound(id, currentRound, dice, currentSetScored);
         resetDice();
         checkSetsRemaining();
         System.out.println("Press any key to end turn!");
@@ -124,7 +140,9 @@ public class Player implements Evaluate {
                 int setChosen = Integer.parseInt(Main.getInput().nextLine());
 
                 if (setChosen > 0 && setChosen < 14 && !scoresList.get(setChosen-1).isPicked()){
-                    scoresList.get(setChosen-1).setScore(evaluateAndScore(setChosen, dice));
+                    int score = evaluateAndScore(setChosen, dice);
+                    scoresList.get(setChosen-1).setScore(score);
+                    currentSetScored = scoresList.get(setChosen-1);
                     pickedValidSet = true;
                 } else {
                     System.out.println("Set not available, pick another.");
@@ -248,6 +266,10 @@ public class Player implements Evaluate {
             } else System.out.println();
         }
         System.out.println("\nTotal Score: " + totalScore);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

@@ -40,7 +40,7 @@ public class ScoreBoard {
             p.printScore();
         }
         System.out.println("********************************");
-        System.out.println(players[1] + " is the winner!");
+        System.out.println(players[1].getName() + " is the winner!");
         System.out.println("********************************");
         for (Player p :
                 players) {
