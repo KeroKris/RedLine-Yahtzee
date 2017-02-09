@@ -1,3 +1,5 @@
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,8 +111,11 @@ public class Player implements Evaluate {
         DatabaseHandler.logRound(id, currentRound, dice, currentSetScored);
         resetDice();
         checkSetsRemaining();
-        System.out.println("Press any key to end turn!");
-        Main.getInput().nextLine();
+        //Added a force quit that saves the result so far to the database for testing purposes regarding the logGame method
+        System.out.println("Press enter to end turn! (enter 'quit' to end game)");
+        if (Main.getInput().nextLine().toLowerCase().equals("quit")){
+            setSetsRemaining(false); // hard coded for testing purposes
+        }
     }
 
     /**
@@ -241,6 +246,8 @@ public class Player implements Evaluate {
      * Also sets the bonus if bonus requirements are met.
      */
     public void printScore() {
+
+        // TODO Note that this is a terrible way to keep track of the score, need to fix that.
         int bonusRequiredSum = 0;
         totalScore = 0;
 
@@ -256,7 +263,7 @@ public class Player implements Evaluate {
         if (scoredBonus) {
             scoresList.get(13).setScore(35);
             System.out.println("* \tBONUS:\t\t\tScored!\tpoints: " + scoresList.get(13).getScore());
-            totalScore+= scoresList.get(14).getScore();
+            totalScore+= scoresList.get(13).getScore();
         }
         for (int i = 7; i <= 13; i++) {
             System.out.print(i + ".\t" + YahtzeeSet.getSetWithIdentifier(i));

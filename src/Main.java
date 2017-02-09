@@ -20,14 +20,8 @@ public class Main {
         DatabaseHandler.databaseSession();
 
         System.out.println("Welcome to Yahtzee");
-        DatabaseHandler.printHighScore();
 
-/*        //test Parameters
-        gameID = 1000;
-        Die[] testDice = {new Die(1), new Die(2), new Die(3), new Die(4), new Die(5)};
-        Scores testScore = new Scores(YahtzeeSet.LARGE_STRAIGHT);
-        testScore.setScore(40);
-        DatabaseHandler.logRound(1, 2, testDice, testScore);*/
+        mainMenu();
         setUpGame();
 
         System.out.println("\n\nPress any key to start game\n\n");
@@ -42,16 +36,60 @@ public class Main {
             }
         }
 
-        sortPlayersByPoints();
-        DatabaseHandler.logGame(players, gameID);
         ScoreBoard.print(players);
+        DatabaseHandler.logGame(players, gameID);
         DatabaseHandler.endSession();
+    }
+
+    /**
+     * Runs a loop with a menu, ends if you want to start a game.
+     */
+    private static void mainMenu() {
+        int choice = 0;
+
+        while (choice != 1){
+
+            System.out.println("What do you want to do? \n" +
+                    "1. Play a game\n" +
+                    "2. Print Highscore\n" +
+                    "3. Print game History\n" +
+                    "4. Print game log");
+
+            try{
+                choice = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e){
+                choice = -1;
+            }
+
+            switch (choice){
+                case 1:
+                    break;
+                case 2:
+                    DatabaseHandler.printHighScore();
+                    System.out.println("\n");
+                    break;
+                case 3:
+                    System.out.println("What player do you want the history for?");
+                    String playerName = input.nextLine();
+                    DatabaseHandler.printGameHistory(playerName);
+                    System.out.println("\n");
+                    break;
+                case 4:
+                    System.out.println("For what game do you want the log? (gameID)");
+                    String gameIdString = input.nextLine();
+                    DatabaseHandler.printGameLog(gameIdString);
+                    break;
+                default:
+                    System.out.println("Choose 1-4");
+                    break;
+            }
+        }
     }
 
     /**
      * Sorts the players in order of points, made with a simple bubble sort
      */
-    private static void sortPlayersByPoints() {
+    public static void sortPlayersByPoints() {
         boolean swapped=true;
         int i, j = players.length;
         Player tmp;
@@ -59,7 +97,7 @@ public class Main {
             swapped=false;
             i=0;
             while(i<j-1){
-                if(players[i].getTotalScore() > players[i+1].getTotalScore()){
+                if(players[i].getTotalScore() < players[i+1].getTotalScore()){
                     tmp = players[i+1];
                     players[i+1] = players[i];
                     players[i] = tmp;
@@ -76,10 +114,10 @@ public class Main {
      * Amount of players, player names.
      */
     private static void setUpGame() {
-        System.out.println("How many Players do you want? (1/2)");
+        System.out.println("How many Players do you want? (1-4)");
 
         playerAmount = Integer.parseInt(input.nextLine());
-        if (playerAmount > 2) playerAmount = 2;
+        if (playerAmount > 4) playerAmount = 4;
         players = new Player[playerAmount];
 
         for (int i = 0; i < playerAmount; i++) {
@@ -108,11 +146,15 @@ public class Main {
         return gameID;
     }
 
+    /**
+     * Login method that asks for a name and checks with the database if it exists, if not the option will be provided
+     * to create a new player. Also checks for a password if the name is found, just to keep unique names for players.
+     * @param i
+     */
     public static void login(int i){
 
         boolean playerPicked = false;
         while (!playerPicked){
-
             System.out.println("What is your name?");
 
             //check if player exist in the database
@@ -121,10 +163,8 @@ public class Main {
             if (!exists){
                 System.out.println("Player name not found. Do you want to create a new player? (Y/N)");
                 if (input.nextLine().toLowerCase().equals("y")){
-                    //Create new player in database
-                    System.out.println("Enter password");
+                    System.out.println("Enter a password (note that the password is not encrypted)");
                     DatabaseHandler.insertNewPlayer(name, input.nextLine());
-                    // INSERT playerName, password
                     int playerId = DatabaseHandler.getPlayerId(name);
                     players[i] = new Player(name, playerId);
                     playerPicked = true;
@@ -141,6 +181,4 @@ public class Main {
             }
         }
     }
-
-
 }

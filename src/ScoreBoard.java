@@ -15,32 +15,35 @@ public class ScoreBoard {
         System.out.println("*********GAME HAS ENDED*********");
         System.out.println("********************************");
 
-
-        boolean swapped=true;
-        int i, j = players.length;
-        Player tmp;
-        while(swapped){
-            swapped=false;
-            i=0;
-            while(i<j-1){
-                if(players[i].getTotalScore() > players[i+1].getTotalScore()){
-                    tmp = players[i+1];
-                    players[i+1] = players[i];
-                    players[i] = tmp;
-                    swapped=true;
-                }
-                i++;
-            }
-            j--;
-        }
+//
+//        boolean swapped=true;
+//        int i, j = players.length;
+//        Player tmp;
+//        while(swapped){
+//            swapped=false;
+//            i=0;
+//            while(i<j-1){
+//                if(players[i].getTotalScore() < players[i+1].getTotalScore()){
+//                    tmp = players[i+1];
+//                    players[i+1] = players[i];
+//                    players[i] = tmp;
+//                    swapped=true;
+//                }
+//                i++;
+//            }
+//            j--;
+//        }
 
         for (Player p :
                 players) {
             System.out.println(p.getName() + "'s Score is:");
             p.printScore();
         }
+
+        Main.sortPlayersByPoints();
+
         System.out.println("********************************");
-        System.out.println(players[1].getName() + " is the winner!");
+        System.out.println(players[0].getName() + " is the winner!");
         System.out.println("********************************");
         for (Player p :
                 players) {

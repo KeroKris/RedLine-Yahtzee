@@ -20,6 +20,8 @@ public class YahtzeeSetTest {
         dice[4] = new Die(3);
     }
 
+
+
     @Test
     public void threeOfAKindTestWithLastDice(){
 
